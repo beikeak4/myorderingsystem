@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="registrycenter" />
         <module name="clientfeign" />
+        <module name="account (1)" />
         <module name="configserver" />
         <module name="menu" />
         <module name="user" />
@@ -20,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account" options="-parameters" />
+      <module name="account (1)" options="-parameters" />
       <module name="clientfeign" options="-parameters" />
       <module name="configserver" options="-parameters" />
       <module name="menu" options="-parameters" />
