@@ -1,5 +1,6 @@
 package com.southwind.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.southwind.entity.Account;
 import com.southwind.entity.Admin;
 import com.southwind.entity.User;
@@ -20,6 +21,7 @@ public class AccountHandler {
     private AccountFeign accountFeign;
 
     @PostMapping("/login")
+    @HystrixCommand(fallbackMethod = "loginError")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("type") String type, HttpSession session){
         Account account = accountFeign.login(username,password,type);
         String target = null;
@@ -71,6 +73,11 @@ public class AccountHandler {
         admin.setPassword(ReflectUtils.getFieldValue(account,"password")+"");
         admin.setId((long)(ReflectUtils.getFieldValue(account,"id")));
         return admin;
+    }
+
+    public String loginError(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("type") String type, HttpSession session){
+        System.out.println("login error------------------------------------------------------------");
+        return "login error";
     }
 }
 
